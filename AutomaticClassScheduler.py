@@ -7,6 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 import getpass
 
 #Instantiate chrome webdriver
+#mac "/Users/FareedMabrouk/Desktop/Explore/Coding/Python/automatic-registration/chromedriver"
 driverpath = "C:\\Users\\Malik\\Desktop\\Automatic Class Scheduler\\chromedriver.exe"
 
 def check_exists_by_xpath(xpath):
@@ -33,7 +34,10 @@ def sign_up_both(lecture, quiz):
     if element:
         login()
     if drop_list:
-        drop_lectures()
+        print(drop_list)
+        for sln in drop_list:
+            print('Dropping sln ' + str(sln))
+            driver.find_element_by_xpath('//tt[contains(text(), \'' + sln + '\')]//ancestor::td/preceding-sibling::td').click()
     driver.find_element_by_name("sln7").send_keys(lecture)
     driver.find_element_by_name("sln8").send_keys(quiz)
     driver.find_element_by_xpath('//*[@id="regform"]/input[7]').click()
@@ -44,7 +48,10 @@ def sign_up(lecture):
     if element:
         login()
     if drop_list:
-        drop_lectures()
+        print(drop_list)
+        for sln in drop_list:
+            print('Dropping sln ' + str(sln))
+            driver.find_element_by_xpath('//tt[contains(text(), \'' + sln + '\')]//ancestor::td/preceding-sibling::td').click()
     driver.find_element_by_name("sln7").send_keys(lecture)
     driver.find_element_by_xpath('//*[@id="regform"]/input[7]').click()
 
@@ -73,9 +80,6 @@ def page_exists():
         print("Registration is currently unavailable, trying again soon.")
         return False
     return True
-def drop_lectures():
-    for sln in drop_list:
-        driver.find_element_by_xpath('//tt[contains(text(), \'' + sln + '\')]//ancestor::td/preceding-sibling::td').click()
 username = input('Enter your NetID: ')
 password = getpass.getpass('Enter your password: ')
 
